@@ -45,11 +45,7 @@ namespace ChecklistAPI.Repositories
             }
         }
 
-        public Task<Condominio> CreateCondominio(Condominio condominio)
-        {
-            throw new NotImplementedException();
-        }
-
+       
         public async Task<bool> DeleteCondominio(int id)
         {
             try
