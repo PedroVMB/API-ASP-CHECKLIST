@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ChecklistAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class CondominioController : ControllerBase
     {

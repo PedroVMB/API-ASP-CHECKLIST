@@ -170,7 +170,7 @@ namespace ChecklistAPI.Repositories
                     {
                         command.Parameters.AddWithValue("@id", id);
                         command.Parameters.AddWithValue("@nome", condominio.Nome);
-                        command.Parameters.AddWithValue("@cnpj", condominio.cnpj);
+                        command.Parameters.AddWithValue("@cnpj", condominio.Cnpj);
                         command.Parameters.AddWithValue("@quantidade_torres", condominio.Quantidade_de_torres);
 
                         int rowsAffected = await command.ExecuteNonQueryAsync();
