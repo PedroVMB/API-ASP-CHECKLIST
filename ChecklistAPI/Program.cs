@@ -11,7 +11,7 @@ namespace ChecklistAPI
             // Add services to the container.
 
             builder.Services.AddScoped<CondominioRepository>();
-
+            builder.Services.AddScoped<TorreRepository>();
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
