@@ -31,7 +31,7 @@ namespace ChecklistAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTorre(int id)
+        public async Task<IActionResult> DeleteTorre(decimal id)
         {
             try
             {
@@ -64,7 +64,7 @@ namespace ChecklistAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetTorreById(int id)
+        public async Task<IActionResult> GetTorreById(decimal id)
         {
             try
             {
@@ -81,7 +81,7 @@ namespace ChecklistAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateTorre(int id, [FromBody] Torre torre)
+        public async Task<IActionResult> UpdateTorre(decimal id, [FromBody] Torre torre)
         {
             try
             {

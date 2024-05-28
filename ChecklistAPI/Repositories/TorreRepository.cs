@@ -25,24 +25,51 @@ namespace ChecklistAPI.Repositories
                 using (var connection = new SqlConnection(_connectionString))
                 {
                     await connection.OpenAsync();
-
-                    string sql = @"INSERT INTO torres " +
-                                 "(condominio_id, numero_torre, quantidade_andares, quantidade_terracos, " +
-                                 "quantidade_salao_de_festas, quantidade_garagens, quantidade_guaritas) VALUES" +
-                                 "(@idCondominio, @numeroTorre, @quantidadeAndar, @quantidadeTerraco, " +
-                                 "@quantidadeSalaoDeFesta, @quantidadeGaragem, @quantidadeGuarita)";
-
-                    using (var command = new SqlCommand(sql, connection))
+                    using (var transaction = connection.BeginTransaction())
                     {
-                        command.Parameters.AddWithValue("@idCondominio", torreDTO.Condominio_id);
-                        command.Parameters.AddWithValue("@numeroTorre", torreDTO.Numero_torre);
-                        command.Parameters.AddWithValue("@quantidadeAndar", torreDTO.Quantidade_andares);
-                        command.Parameters.AddWithValue("@quantidadeTerraco", torreDTO.Quantidade_terracos);
-                        command.Parameters.AddWithValue("@quantidadeSalaoDeFesta", torreDTO.Quantidade_salao_de_festas);
-                        command.Parameters.AddWithValue("@quantidadeGaragem", torreDTO.Quantidade_garagens);
-                        command.Parameters.AddWithValue("@quantidadeGuarita", torreDTO.Quantidade_guaritas);
+                        try
+                        {
+                            // Verificar se o condomínio existe
+                            string checkCondominioSql = "SELECT COUNT(*) FROM condominios WHERE id = @idCondominio";
+                            using (var checkCommand = new SqlCommand(checkCondominioSql, connection, transaction))
+                            {
+                                checkCommand.Parameters.AddWithValue("@idCondominio", torreDTO.Condominio_id);
 
-                        await command.ExecuteNonQueryAsync();
+                                int condominioCount = (int)await checkCommand.ExecuteScalarAsync();
+                                if (condominioCount == 0)
+                                {
+                                    throw new Exception("Condomínio não encontrado");
+                                }
+                            }
+
+                            // Inserir a torre se o condomínio existe
+                            string sql = @"INSERT INTO torres 
+                                   (condominio_id, numero_torre, quantidade_andares, quantidade_terracos, 
+                                    quantidade_salao_de_festas, quantidade_garagens, quantidade_guaritas) 
+                                   VALUES 
+                                   (@idCondominio, @numeroTorre, @quantidadeAndar, @quantidadeTerraco, 
+                                    @quantidadeSalaoDeFesta, @quantidadeGaragem, @quantidadeGuarita)";
+
+                            using (var command = new SqlCommand(sql, connection, transaction))
+                            {
+                                command.Parameters.AddWithValue("@idCondominio", torreDTO.Condominio_id);
+                                command.Parameters.AddWithValue("@numeroTorre", torreDTO.Numero_torre);
+                                command.Parameters.AddWithValue("@quantidadeAndar", torreDTO.Quantidade_andares);
+                                command.Parameters.AddWithValue("@quantidadeTerraco", torreDTO.Quantidade_terracos);
+                                command.Parameters.AddWithValue("@quantidadeSalaoDeFesta", torreDTO.Quantidade_salao_de_festas);
+                                command.Parameters.AddWithValue("@quantidadeGaragem", torreDTO.Quantidade_garagens);
+                                command.Parameters.AddWithValue("@quantidadeGuarita", torreDTO.Quantidade_guaritas);
+
+                                await command.ExecuteNonQueryAsync();
+                            }
+
+                            transaction.Commit();
+                        }
+                        catch
+                        {
+                            transaction.Rollback();
+                            throw;
+                        }
                     }
                 }
             }
@@ -54,7 +81,8 @@ namespace ChecklistAPI.Repositories
 
 
 
-        public async Task<bool> DeleteTorre(int id)
+
+        public async Task<bool> DeleteTorre(decimal id)
         {
             try
             {
@@ -80,7 +108,12 @@ namespace ChecklistAPI.Repositories
             }
         }
 
-        public async Task<Torre> GetTorreById(int id)
+        public Task<bool> DeleteTorre(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Torre> GetTorreById(decimal id)
         {
             try
             {
@@ -119,6 +152,11 @@ namespace ChecklistAPI.Repositories
             {
                 throw;
             }
+        }
+
+        public Task<Torre> GetTorreById(int id)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<List<Torre>> GetTorres()
@@ -163,7 +201,7 @@ namespace ChecklistAPI.Repositories
             }
         }
 
-        public async Task<Torre> UpdateTorre(Torre torre, int id)
+        public async Task<Torre> UpdateTorre(Torre torre, decimal id)
         {
             try
             {
@@ -206,5 +244,7 @@ namespace ChecklistAPI.Repositories
                 throw;
             }
         }
+
+
     }
 }

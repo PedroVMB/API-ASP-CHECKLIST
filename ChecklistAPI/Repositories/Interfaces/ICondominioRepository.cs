@@ -7,8 +7,8 @@ namespace ChecklistAPI.Repositories.Interfaces
     {
         Task CreateCondominio(CondominoDTO condominoDTO);
         Task<List<Condominio>> GetCondominios();
-        Task<Condominio> GetCondominiotById(int id);
-        Task<Condominio> UpdateCondominio(Condominio condominio, int id);
-        Task<bool> DeleteCondominio(int id);
+        Task<Condominio> GetCondominiotById(decimal id);
+        Task<Condominio> UpdateCondominio(Condominio condominio, decimal id);
+        Task<bool> DeleteCondominio(decimal id);
     }
 }

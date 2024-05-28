@@ -32,7 +32,7 @@ namespace ChecklistAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCondominio(int id)
+        public async Task<IActionResult> DeleteCondominio(decimal id)
         {
             try
             {
@@ -63,7 +63,7 @@ namespace ChecklistAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetCondominioById(int id)
+        public async Task<IActionResult> GetCondominioById(decimal id)
         {
             try
             {
@@ -80,7 +80,7 @@ namespace ChecklistAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCondominio(int id, [FromBody] Condominio condominio)
+        public async Task<IActionResult> UpdateCondominio(decimal id, [FromBody] Condominio condominio)
         {
             try
             {

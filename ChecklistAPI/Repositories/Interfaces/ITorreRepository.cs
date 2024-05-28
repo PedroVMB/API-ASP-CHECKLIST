@@ -7,8 +7,8 @@ namespace ChecklistAPI.Repositories.Interfaces
     {
         Task CreateTorre(TorreDTO torreDTO);
         Task<List<Torre>> GetTorres();
-        Task<Torre> GetTorreById(int id);
-        Task<Torre> UpdateTorre(Torre torre, int id);
-        Task<bool> DeleteTorre(int id);
+        Task<Torre> GetTorreById(decimal id);
+        Task<Torre> UpdateTorre(Torre torre, decimal id);
+        Task<bool> DeleteTorre(decimal id);
     }
 }

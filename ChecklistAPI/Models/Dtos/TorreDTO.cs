@@ -5,7 +5,7 @@ namespace ChecklistAPI.Models.Dtos
     public class TorreDTO
     {
         [Required]
-        public int Condominio_id { get; set; }
+        public decimal Condominio_id { get; set; }
         [Required]
         public int Numero_torre { get; set; }
         [Required]

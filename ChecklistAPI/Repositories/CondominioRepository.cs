@@ -25,28 +25,36 @@ namespace ChecklistAPI.Repositories
                 {
                     await connection.OpenAsync();
 
-                    string sql = @"INSERT INTO condominios " +
-                                 "(nome, cnpj, quantidade_torres) VALUES" +
-                                 "(@nome, @cnpj, @quantidade_torres)";
+                    string sql = @"INSERT INTO condominios 
+                           (nome, cnpj, bairro, cep, complemento, numero, uf, cidade, quantidade_torres) 
+                           VALUES 
+                           (@nome, @cnpj, @bairro, @cep, @complemento, @numero, @uf, @cidade, @quantidade_torres)";
 
                     using (var command = new SqlCommand(sql, connection))
                     {
                         command.Parameters.AddWithValue("@nome", condominoDTO.Nome);
                         command.Parameters.AddWithValue("@cnpj", condominoDTO.Cnpj);
+                        command.Parameters.AddWithValue("@bairro", condominoDTO.Bairro);
+                        command.Parameters.AddWithValue("@cep", condominoDTO.Cep);
+                        command.Parameters.AddWithValue("@complemento", condominoDTO.Complemento);
+                        command.Parameters.AddWithValue("@numero", condominoDTO.Numero);
+                        command.Parameters.AddWithValue("@uf", condominoDTO.Uf);
+                        command.Parameters.AddWithValue("@cidade", condominoDTO.Cidade);
                         command.Parameters.AddWithValue("@quantidade_torres", condominoDTO.Quantidade_de_torres);
 
                         await command.ExecuteNonQueryAsync();
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw new Exception(ex.Message);
             }
         }
 
-       
-        public async Task<bool> DeleteCondominio(int id)
+
+
+        public async Task<bool> DeleteCondominio(decimal id)
         {
             try
             {
@@ -95,6 +103,12 @@ namespace ChecklistAPI.Repositories
                                     Id = Convert.ToInt32(reader["id"]),
                                     Nome = reader["nome"].ToString(),
                                     Cnpj = reader["cnpj"].ToString(),
+                                    Bairro = reader["bairro"].ToString(),
+                                    Cep = reader["cep"].ToString(),
+                                    Complemento = reader["complemento"].ToString(),
+                                    Numero = reader["numero"].ToString(),
+                                    Uf = reader["uf"].ToString(),
+                                    Cidade = reader["cidade"].ToString(),
                                     Quantidade_de_torres = Convert.ToInt32(reader["quantidade_torres"])
                                 };
 
@@ -112,7 +126,8 @@ namespace ChecklistAPI.Repositories
             }
         }
 
-        public async Task<Condominio> GetCondominiotById(int id)
+
+        public async Task<Condominio> GetCondominiotById(decimal id)
         {
             try
             {
@@ -135,6 +150,12 @@ namespace ChecklistAPI.Repositories
                                     Id = Convert.ToInt32(reader["id"]),
                                     Nome = reader["nome"].ToString(),
                                     Cnpj = reader["cnpj"].ToString(),
+                                    Bairro = reader["bairro"].ToString(),
+                                    Cep = reader["cep"].ToString(),
+                                    Complemento = reader["complemento"].ToString(),
+                                    Numero = reader["numero"].ToString(),
+                                    Uf = reader["uf"].ToString(),
+                                    Cidade = reader["cidade"].ToString(),
                                     Quantidade_de_torres = Convert.ToInt32(reader["quantidade_torres"])
                                 };
                             }
@@ -152,7 +173,8 @@ namespace ChecklistAPI.Repositories
             }
         }
 
-        public async Task<Condominio> UpdateCondominio(Condominio condominio, int id)
+
+        public async Task<Condominio> UpdateCondominio(Condominio condominio, decimal id)
         {
             try
             {
@@ -160,13 +182,29 @@ namespace ChecklistAPI.Repositories
                 {
                     await connection.OpenAsync();
 
-                    string sql = @"UPDATE condominios SET nome = @nome, cnpj = @cnpj, quantidade_torres = @quantidade_torres WHERE id = @id";
+                    string sql = @"UPDATE condominios SET 
+                           nome = @nome, 
+                           cnpj = @cnpj, 
+                           bairro = @bairro, 
+                           cep = @cep, 
+                           complemento = @complemento, 
+                           numero = @numero, 
+                           uf = @uf, 
+                           cidade = @cidade, 
+                           quantidade_torres = @quantidade_torres 
+                           WHERE id = @id";
 
                     using (var command = new SqlCommand(sql, connection))
                     {
                         command.Parameters.AddWithValue("@id", id);
                         command.Parameters.AddWithValue("@nome", condominio.Nome);
                         command.Parameters.AddWithValue("@cnpj", condominio.Cnpj);
+                        command.Parameters.AddWithValue("@bairro", condominio.Bairro);
+                        command.Parameters.AddWithValue("@cep", condominio.Cep);
+                        command.Parameters.AddWithValue("@complemento", condominio.Complemento);
+                        command.Parameters.AddWithValue("@numero", condominio.Numero);
+                        command.Parameters.AddWithValue("@uf", condominio.Uf);
+                        command.Parameters.AddWithValue("@cidade", condominio.Cidade);
                         command.Parameters.AddWithValue("@quantidade_torres", condominio.Quantidade_de_torres);
 
                         int rowsAffected = await command.ExecuteNonQueryAsync();
@@ -188,6 +226,7 @@ namespace ChecklistAPI.Repositories
             }
         }
 
-       
+
+
     }
 }
