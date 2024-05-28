@@ -25,7 +25,7 @@ namespace ChecklistAPI.Repositories
                 {
                     await connection.OpenAsync();
 
-                    string sql = @"INSERT INTO condominios 
+                    string sql = @"INSERT INTO condominio 
                            (nome, cnpj, bairro, cep, complemento, numero, uf, cidade, quantidade_torres) 
                            VALUES 
                            (@nome, @cnpj, @bairro, @cep, @complemento, @numero, @uf, @cidade, @quantidade_torres)";
@@ -90,7 +90,7 @@ namespace ChecklistAPI.Repositories
                 {
                     await connection.OpenAsync();
 
-                    string sql = "SELECT * FROM condominios";
+                    string sql = "SELECT * FROM condominio";
 
                     using (var command = new SqlCommand(sql, connection))
                     {
@@ -135,7 +135,7 @@ namespace ChecklistAPI.Repositories
                 {
                     await connection.OpenAsync();
 
-                    string sql = "SELECT * FROM condominios WHERE id = @id";
+                    string sql = "SELECT * FROM condominio WHERE id = @id";
 
                     using (var command = new SqlCommand(sql, connection))
                     {
@@ -182,7 +182,7 @@ namespace ChecklistAPI.Repositories
                 {
                     await connection.OpenAsync();
 
-                    string sql = @"UPDATE condominios SET 
+                    string sql = @"UPDATE condominio SET 
                            nome = @nome, 
                            cnpj = @cnpj, 
                            bairro = @bairro, 
