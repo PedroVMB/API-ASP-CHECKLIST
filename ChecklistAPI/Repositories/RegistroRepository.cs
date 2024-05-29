@@ -136,15 +136,15 @@ namespace ChecklistAPI.Repositories
                             {
                                 return new Registro
                                 {
-                                    Id = Convert.ToInt32(reader["id"]),
-                                    CondominioId = Convert.ToInt32(reader["condominio_id"]),
-                                    TorreId = Convert.ToInt32(reader["torre_id"]),
-                                    FotoPath = reader["foto_path"].ToString(),
-                                    DataDoRegistro = Convert.ToDateTime(reader["data_do_registro"]),
-                                    DescricaoProblema = reader["descricao_problema"].ToString(),
-                                    TipoProblema = (ProblemaEnum)Enum.Parse(typeof(ProblemaEnum), reader["tipo_problema"].ToString()),
-                                    CreatedAt = Convert.ToDateTime(reader["created_at"]),
-                                    UpdatedAt = Convert.ToDateTime(reader["updated_at"])
+                                    Id = reader["id"] != DBNull.Value ? Convert.ToInt32(reader["id"]) : 0,
+                                    CondominioId = reader["condominio_id"] != DBNull.Value ? Convert.ToInt32(reader["condominio_id"]) : 0,
+                                    TorreId = reader["torre_id"] != DBNull.Value ? Convert.ToInt32(reader["torre_id"]) : 0,
+                                    FotoPath = reader["foto_path"] != DBNull.Value ? reader["foto_path"].ToString() : null,
+                                    DataDoRegistro = reader["data_do_registro"] != DBNull.Value ? Convert.ToDateTime(reader["data_do_registro"]) : DateTime.MinValue,
+                                    DescricaoProblema = reader["descricao_problema"] != DBNull.Value ? reader["descricao_problema"].ToString() : null,
+                                    TipoProblema = reader["tipo_problema"] != DBNull.Value ? (ProblemaEnum)Enum.Parse(typeof(ProblemaEnum), reader["tipo_problema"].ToString()) : 0,
+                                    CreatedAt = reader["created_at"] != DBNull.Value ? Convert.ToDateTime(reader["created_at"]) : DateTime.MinValue,
+                                    UpdatedAt = reader["updated_at"] != DBNull.Value ? Convert.ToDateTime(reader["updated_at"]) : DateTime.MinValue
                                 };
                             }
                             return null;
@@ -178,15 +178,15 @@ namespace ChecklistAPI.Repositories
                             {
                                 registros.Add(new Registro
                                 {
-                                    Id = Convert.ToInt32(reader["id"]),
-                                    CondominioId = Convert.ToInt32(reader["condominio_id"]),
-                                    TorreId = Convert.ToInt32(reader["torre_id"]),
-                                    FotoPath = reader["foto_path"].ToString(),
-                                    DataDoRegistro = Convert.ToDateTime(reader["data_do_registro"]),
-                                    DescricaoProblema = reader["descricao_problema"].ToString(),
-                                    TipoProblema = (ProblemaEnum)Enum.Parse(typeof(ProblemaEnum), reader["tipo_problema"].ToString()),
-                                    CreatedAt = Convert.ToDateTime(reader["created_at"]),
-                                    UpdatedAt = Convert.ToDateTime(reader["updated_at"])
+                                    Id = reader["id"] != DBNull.Value ? Convert.ToInt32(reader["id"]) : 0,
+                                    CondominioId = reader["condominio_id"] != DBNull.Value ? Convert.ToInt32(reader["condominio_id"]) : 0,
+                                    TorreId = reader["torre_id"] != DBNull.Value ? Convert.ToInt32(reader["torre_id"]) : 0,
+                                    FotoPath = reader["foto_path"] != DBNull.Value ? reader["foto_path"].ToString() : null,
+                                    DataDoRegistro = reader["data_do_registro"] != DBNull.Value ? Convert.ToDateTime(reader["data_do_registro"]) : DateTime.MinValue,
+                                    DescricaoProblema = reader["descricao_problema"] != DBNull.Value ? reader["descricao_problema"].ToString() : null,
+                                    TipoProblema = reader["tipo_problema"] != DBNull.Value ? (ProblemaEnum)Enum.Parse(typeof(ProblemaEnum), reader["tipo_problema"].ToString()) : 0,
+                                    CreatedAt = reader["created_at"] != DBNull.Value ? Convert.ToDateTime(reader["created_at"]) : DateTime.MinValue,
+                                    UpdatedAt = reader["updated_at"] != DBNull.Value ? Convert.ToDateTime(reader["updated_at"]) : DateTime.MinValue
                                 });
                             }
                         }
@@ -195,11 +195,12 @@ namespace ChecklistAPI.Repositories
 
                 return registros;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw new Exception($"Erro ao obter registros: {ex.Message}");
             }
         }
+
 
         public async Task<Registro> UpdateRegistro(Registro registro, decimal id)
         {
