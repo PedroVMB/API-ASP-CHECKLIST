@@ -13,6 +13,8 @@ namespace ChecklistAPI
             builder.Services.AddScoped<CondominioRepository>();
             builder.Services.AddScoped<TorreRepository>();
             builder.Services.AddScoped<RegistroRepository>();
+            builder.Services.AddScoped<AdministradorRepository>();
+            builder.Services.AddScoped<SindicoRepository>();
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
