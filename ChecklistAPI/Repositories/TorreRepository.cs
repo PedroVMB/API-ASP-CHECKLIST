@@ -30,7 +30,7 @@ namespace ChecklistAPI.Repositories
                         try
                         {
                             // Verificar se o condomínio existe
-                            string checkCondominioSql = "SELECT COUNT(*) FROM condominios WHERE id = @idCondominio";
+                            string checkCondominioSql = "SELECT COUNT(*) FROM condominio WHERE id = @idCondominio";
                             using (var checkCommand = new SqlCommand(checkCondominioSql, connection, transaction))
                             {
                                 checkCommand.Parameters.AddWithValue("@idCondominio", torreDTO.Condominio_id);
@@ -43,7 +43,7 @@ namespace ChecklistAPI.Repositories
                             }
 
                             // Inserir a torre se o condomínio existe
-                            string sql = @"INSERT INTO torres 
+                            string sql = @"INSERT INTO torre 
                                    (condominio_id, numero_torre, quantidade_andares, quantidade_terracos, 
                                     quantidade_salao_de_festas, quantidade_garagens, quantidade_guaritas) 
                                    VALUES 
@@ -90,7 +90,7 @@ namespace ChecklistAPI.Repositories
                 {
                     await connection.OpenAsync();
 
-                    string sql = "DELETE FROM torres WHERE id = @Id";
+                    string sql = "DELETE FROM torre WHERE id = @Id";
 
                     using (var command = new SqlCommand(sql, connection))
                     {
@@ -121,7 +121,7 @@ namespace ChecklistAPI.Repositories
                 {
                     await connection.OpenAsync();
 
-                    string sql = "SELECT * FROM torres WHERE id = @Id";
+                    string sql = "SELECT * FROM torre WHERE id = @Id";
 
                     using (var command = new SqlCommand(sql, connection))
                     {
@@ -169,7 +169,7 @@ namespace ChecklistAPI.Repositories
                 {
                     await connection.OpenAsync();
 
-                    string sql = "SELECT * FROM torres";
+                    string sql = "SELECT * FROM torre";
 
                     using (var command = new SqlCommand(sql, connection))
                     {
@@ -209,7 +209,7 @@ namespace ChecklistAPI.Repositories
                 {
                     await connection.OpenAsync();
 
-                    string sql = @"UPDATE torres SET 
+                    string sql = @"UPDATE torre SET 
                                     condominio_id = @condominio_id, 
                                     numero_torre = @numero_torre, 
                                     quantidade_andares = @quantidade_andares, 
