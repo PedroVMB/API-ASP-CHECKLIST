@@ -1,6 +1,6 @@
 ﻿namespace ChecklistAPI.Models
 {
-    public class Administrador
+    public class Administrador : ApplicationUser
     {
         public decimal Id { get; set; }
         public string Nome { get; set; } = String.Empty;
