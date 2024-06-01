@@ -2,12 +2,14 @@
 using ChecklistAPI.Models.Dtos;
 using ChecklistAPI.Repositories;
 using ChecklistAPI.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 
 namespace ChecklistAPI.Controllers
 {
+    [Authorize(Roles = "Administrador")]
     [Route("[controller]")]
     [ApiController]
     public class AdministradorController : ControllerBase
