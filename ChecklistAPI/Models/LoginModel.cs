@@ -1,8 +1,12 @@
-﻿namespace ChecklistAPI.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ChecklistAPI.Models
 {
     public class LoginModel
     {
-        public string Email { get; set; }
-        public string Password { get; set; }
+        [Required(ErrorMessage = "User Name is required")]
+        public string? Username { get; set; }
+        [Required(ErrorMessage = "Password is required")]
+        public string? Password { get; set; }
     }
 }

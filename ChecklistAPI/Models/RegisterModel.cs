@@ -1,11 +1,15 @@
-﻿namespace ChecklistAPI.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ChecklistAPI.Models
 {
     public class RegisterModel
     {
-        public string Nome { get; set; }
-        public string Cpf { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string Role { get; set; } // Pode ser "Sindico" ou "Administrador"
+        [Required(ErrorMessage = "User Name is required")]
+        public string? Username { get; set; }
+        [EmailAddress]
+        [Required(ErrorMessage = "Email is required")]
+        public string? Email { get; set; }
+        [Required(ErrorMessage = "Password is required")]
+        public string? Password { get; set; }
     }
 }
