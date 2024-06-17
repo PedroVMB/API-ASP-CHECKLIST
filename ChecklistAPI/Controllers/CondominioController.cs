@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ChecklistAPI.Controllers
 {
-    [Authorize(Roles = "Administrador")]
+    [Authorize]
     [Route("[controller]")]
     [ApiController]
     public class CondominioController : ControllerBase

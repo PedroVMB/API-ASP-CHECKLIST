@@ -1,4 +1,5 @@
-﻿using ChecklistAPI.Models;
+﻿using ChecklistAPI.Auth;
+using ChecklistAPI.Models;
 using ChecklistAPI.Models.Dtos;
 using ChecklistAPI.Repositories;
 using ChecklistAPI.Repositories.Interfaces;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ChecklistAPI.Controllers
 {
-    [Authorize(Roles = "Sindico, Administrador")]
+    [Authorize(Roles = UserRoles.Admin)]
     [Route("[controller]")]
     [ApiController]
     public class SindicoController : ControllerBase

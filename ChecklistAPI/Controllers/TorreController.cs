@@ -1,4 +1,5 @@
-﻿using ChecklistAPI.Models;
+﻿using ChecklistAPI.Auth;
+using ChecklistAPI.Models;
 using ChecklistAPI.Models.Dtos;
 using ChecklistAPI.Repositories;
 using ChecklistAPI.Repositories.Interfaces;
@@ -7,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ChecklistAPI.Controllers
 {
-    [Authorize(Roles = "Administrador")]
+    [Authorize(Roles = UserRoles.Admin)]
     [Route("[controller]")]
     [ApiController]
     public class TorreController : ControllerBase
